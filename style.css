@@ -1,0 +1,257 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --bg-body-color : rgb(255, 255, 255);
+    --bg-navbar : rgb(15, 26, 62);
+    --bg-navbar-button : rgb(215, 212, 208);
+    --bg-taskBottom : #d8dbe0;
+    --bg-taskTop : #bac1cb;
+    --bg-task: white;
+    --bg-delete-button : rgba(229, 21, 21, 0.96);
+
+    --primary-text-color : white;
+
+    /* padding */
+
+    --nav-padding: 15px 30px;
+    --section-padding: 15px 30px;
+    --padding-s: 5px;
+    --padding-m: 10px;
+    --padding-l : 15px;
+    --padding-xl : 20px;
+    --padding-xxl : 30px;
+
+    /* font size; */
+    --nav-heading-font-size : 12px;
+    --task-title-font-size : 14px;
+    --task-desc-font-size : 13px;
+
+    --border-radius-xs: 5px ;
+    --border-radius-s: 8px ;
+    --border-radius-m: 25px;
+}
+
+html,body{
+    height : 100%;
+    width: 100%;
+    font-family: system-ui, sans-serif;
+}
+
+
+body{
+    color: var(--primary-text-color);
+    background-color : var(--bg-body-color);
+    
+    
+}
+
+main{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* navigation bar */
+
+nav{
+    height: 3.7rem;
+    padding: var(--nav-padding);
+    background-color: var(--bg-navbar);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navbar{
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+nav .navbar .left{
+    font-size: var(--nav-heading-font-size);
+}
+
+nav .navbar .right button{
+    background-color: var(--bg-navbar-button);
+    padding: var(--padding-m) 30px;
+    border-radius: var(--border-radius-m);
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* board */
+
+/*main ko 100% height me display flex aur flex direction column. section ko jitna space bacha hai utna occupy karne dege, flex grow se */
+
+section{
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1; 
+    gap: 50px;
+    padding: var(--padding-xxl);
+    margin-top : 70px;
+}
+
+
+section .task-column{
+    width: 25rem;
+    flex-shrink:0;
+    background-color: var(--bg-taskBottom);
+    border-radius: var(--border-radius-s);
+    color: black;
+    transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.task-column .column-top-bar{
+    height: 46px;
+    font-size: var(--task-title-font-size);
+    background-color: var(--bg-taskTop);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--section-padding);
+    border-radius: var(--border-radius-s) var(--border-radius-s) 0 0 ;
+}
+
+.column-top-bar .task-count{
+    background-color: #fff;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--task-title-font-size);
+}
+
+.task{
+    background-color: var(--bg-task) ;
+    padding: var(--padding-l);
+    border-radius: var(--border-radius-s);
+    margin: 15px;   
+}
+
+/* vertical margin collapse max(up,down) choosen */
+
+.task .task-header{
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    gap: 10px;
+}
+
+.task-header h3{
+    flex: 1;                  /* bachi hui space le */
+    min-width: 0;            /* zarurat pade to shrink ho */
+    overflow-wrap: break-word;
+    font-size: var(--task-title-font-size);
+}
+
+/* NOTE: */
+/* overflow: hidden; */
+/* text-overflow: ellipsis; */
+/* white-space: nowrap;  only one line*/  
+/* flex 1: button jitni jagah chahiye le le, baaki sari space title ko de do. aur Flex items ka default hota hai: min-width:auto;, Matlab: "mere andar jitna bada text hai, mai usse chhota nahi hounga" , isse overflow hota*/
+
+.task-header button {
+    background-color: var(--bg-delete-button);
+    padding: 3px 5px;
+    color: white;
+    border: 1px solid black;
+    border-radius: var(--border-radius-xs);
+}
+
+.task-desc{
+    font-size: var(--task-desc-font-size);
+}
+
+
+
+.hover-over{
+    border : 2px dashed black;
+    scale : 1.04;
+}
+
+/* modal */
+
+.modal{
+    height: 100vh;
+    width: 100vw;
+    /* left:0;
+    top:0; */
+    inset: 0;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: #66666616;
+    backdrop-filter: blur(4px);
+}
+
+.modal.active{
+    display: flex;
+} 
+
+
+.modal-box{
+    background-color: var(--bg-body-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 20rem;
+    width: 90%;
+    max-width: 400px;
+    border-radius: var(--border-radius-s);
+    gap: 20px;
+    padding: var(--padding-s);
+    z-index: 11;
+    color:black;
+}
+
+.modal .modal-box input , .modal .modal-box button{
+    height: 3rem;
+    width: 100%;
+    max-width: 300px;
+    font-size: 14px;
+    border-radius: var(--border-radius-xs);
+    padding-left : 10px;
+}
+
+.modal .modal-box button{
+    width: fit-content;
+    padding: 10px 18px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--bg-navbar);
+    color: white;
+}
+
+.modal .modal-box h2{
+    text-align: center;
+}
+
+.modal .bg{
+    position: absolute;
+    inset: 0;
+}
+
+
+
+
